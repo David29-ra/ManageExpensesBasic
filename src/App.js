@@ -1,24 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
+import { css, Global } from "@emotion/react";
+import { ContainerApp } from './components/containers';
+import { Login } from './pages/Login';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Expense } from './pages/Expenses';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Global
+        styles={css`
+          @import url('https://fonts.googleapis.com/css2?family=Inter&family=Roboto&display=swap');
+          * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-family: 'Roboto', sans-serif;
+            box-sizing: border-box;
+            text-decoration: none;
+          }
+          body {
+            background-color: #fafafa;
+          }
+        `}/>
+      <Router>
+        <ContainerApp>
+          <Switch>
+            <Route path="/" exact component={Login} />
+            <Route path="/expenses" component={Expense} />
+            <Route path="/income" component={Expense} />
+          </Switch>
+          {console.log(sessionStorage.getItem('token'))}
+        </ContainerApp>
+      </Router>
+    </>
   );
 }
 
