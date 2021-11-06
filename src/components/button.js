@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Link } from "react-router-dom";
 
 export function LoginButton () {
   return (
@@ -11,6 +12,14 @@ export function LogoutButton () {
     <Logout children = {"Log out"}/>
   )
 }
+
+export const StyledLink = styled(Link)`
+    text-decoration: none;
+
+    &:focus, &:hover, &:visited, &:link, &:active {
+        text-decoration: none;
+    }
+`
 
 const Login = styled.button`
   width: 77px;
@@ -38,4 +47,5 @@ const Logout = styled.button`
   color: #2F80ED;
   position: absolute;
   top: 740px;
+  left: calc(50% - 93px/2);
 ` 

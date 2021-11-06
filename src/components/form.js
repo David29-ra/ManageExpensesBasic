@@ -1,22 +1,39 @@
 import styled from '@emotion/styled';
-import { LoginButton } from './button';
+import { useState } from 'react';
+import { SessionsService } from '../services/session';
+import { LoginButton, StyledLink } from './button';
+import { Redirect } from "react-router";
 
 export function FormLogin() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [token, setToken] = useState('');
+
+  const login = async () => {
+    const result = new SessionsService();
+    const toToken = await result.login(email, password);
+    setToken(toToken.token);
+    console.log(toToken);
+    sessionStorage.setItem('token', toToken.token);
+  }
+
   return (
-    <Form>
-      
-      <DivInput>
-        <Label htmlFor="name">Email</Label>
-        <Input type="text" id="name" />
-      </DivInput>
+    <>
+      {token ? (<Redirect to="/expenses" />) :
+      (<Form>
+        <DivInput>
+          <Label htmlFor="email">Email</Label>
+          <Input required placeholder="somebody@mail.com" value={email} onChange={(e) => setEmail(e.target.value)} type="email" name="email" />
+        </DivInput>
 
-      <DivInput>
-        <Label htmlFor="password">Password</Label>
-        <Input type="password" id="amount" />
-      </DivInput>
+        <DivInput>
+          <Label htmlFor="password">Password</Label>
+          <Input required placeholder="******" value={password} onChange={(e) => setPassword(e.target.value)} type="password" name="password" />
+        </DivInput>
 
-      <LoginButton />
-    </Form>
+        <StyledLink onClick={login} to={token? "/" : "/"} ><LoginButton type="submit" /></StyledLink>
+      </Form>)}
+    </>
   );
 }
 

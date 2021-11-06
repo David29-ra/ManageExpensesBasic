@@ -2,7 +2,8 @@ import './App.css';
 import { css, Global } from "@emotion/react";
 import { ContainerApp } from './components/containers';
 import { Login } from './pages/Login';
-// import { Navigate } from './pages/Expenses_Income';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Expense } from './pages/Expenses';
 
 function App() {
   return (
@@ -22,11 +23,16 @@ function App() {
             background-color: #fafafa;
           }
         `}/>
-      
-      <ContainerApp>
-        <Login />
-        {/* <Navigate /> */}
-      </ContainerApp>
+      <Router>
+        <ContainerApp>
+          <Switch>
+            <Route path="/" exact component={Login} />
+            <Route path="/expenses" component={Expense} />
+            <Route path="/income" component={Expense} />
+          </Switch>
+          {console.log(sessionStorage.getItem('token'))}
+        </ContainerApp>
+      </Router>
     </>
   );
 }
