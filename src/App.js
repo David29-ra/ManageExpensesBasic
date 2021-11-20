@@ -30,7 +30,6 @@ function App() {
             <Route path="/expenses" component={Expense} />
             <Route path="/income" component={Expense} />
           </Switch>
-          {console.log(sessionStorage.getItem('token'))}
         </ContainerApp>
       </Router>
     </>
